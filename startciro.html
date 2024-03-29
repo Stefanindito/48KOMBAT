@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+<title>Super Ciro-Ciro</title>
+<style>
+  /* CSS untuk mengatur latar belakang */
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Menggunakan viewport height untuk latar belakang fullscreen */
+    background-image: url('bgerigo.jpg'); /* Ganti 'background.jpg' dengan path ke gambar latar belakang Anda */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  button {
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    width: 130px;
+    height: 40px;
+    font-style: normal;
+    
+  }
+  button:hover{
+    cursor: pointer;
+  }
+
+  /* CSS untuk mengatur tampilan tombol */
+  .button-container {
+    margin-top: 20px;
+    display: flex; 
+    justify-content:center;
+  }
+
+ button a{
+   text-decoration: none;
+   font-size: 20px;
+   color: rgb(32, 31, 31);
+ }
+ .button-container .another{
+   text-decoration: none;
+   font-size: 15px;
+   color: rgb(32, 31, 31);
+ }
+/* Animasi detak jantung */
+@keyframes heartbeat {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Kontainer gambar hati */
+  .heart-container {
+
+    position: relative;
+  }
+  
+  /* Gambar hati */
+  .heart-container img {
+
+    animation: heartbeat 1.5s infinite;
+  }
+  .mode {
+    color: red;
+   
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Konten HTML dengan dua tombol -->
+<div class="heart-container">
+  <h1><img src="SUPER-CIRO-CIRO-12-3-2024.png" width="500px" alt=""></h1>
+  <h1 class="mode">IMPOSSIBLE HARD MODE</h1>
+  <div class="button-container">
+
+    <a href="indexx.html"><button>PLAY</button></a>
+    <a href="index.html" class="another"><button>PLAY ANOTHER GAME</button></a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <title>48 KOMBAT</title>
+    
+    <style>
+        /* CSS untuk membuat video memenuhi seluruh layar */
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #play-again-btn {
+            position: fixed;
+            top: 1%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #dddcdc;
+            color: #292929;
+            border: none;
+            cursor: pointer;
+            font-family: "Pixelify Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            width: 130px;
+            height: 40px;
+            font-style: normal;
+            display: none; /* Tombol akan disembunyikan secara default */
+        }
+        button {
+            font-family: "Pixelify Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            width: 130px;
+            height: 20px;
+            font-style: normal;
+            
+          }
+          button:hover{
+            cursor: pointer;
+          }
+    </style>
+</head>
+<body>
+    <video id="fullscreen-video" autoplay controls>
+        <source src="fatality.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <a href="index.html"><button id="play-again-btn">MAIN MENU</button></a>
+    
+    <script>
+        // Mendapatkan elemen video
+        var video = document.getElementById('fullscreen-video');
+
+        // Memeriksa apakah browser mendukung fitur layar penuh
+        if (video.requestFullscreen) {
+            // Jika mendukung, otomatis beralih ke mode layar penuh saat halaman dimuat
+            video.requestFullscreen();
+        } else if (video.mozRequestFullScreen) { /* Firefox */
+            video.mozRequestFullScreen();
+        } else if (video.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+            video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) { /* IE/Edge */
+            video.msRequestFullscreen();
+        }
+
+        // Event listener untuk keluar dari mode layar penuh saat tombol Esc ditekan
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                exitFullscreen();
+            }
+        });
+
+        // Fungsi untuk keluar dari mode layar penuh
+        function exitFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) { /* Firefox */
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { /* Chrome, Safari & Opera */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE/Edge */
+                document.msExitFullscreen();
+            }
+        }
+
+       
+        var playAgainBtn = document.getElementById('play-again-btn');
+
+        video.addEventListener('timeupdate', function() {
+            // Deteksi apakah video sudah mencapai detik ke-19
+            if (video.currentTime >= 19) {
+                playAgainBtn.style.display = 'block'; // Tampilkan tombol "Play Again"
+            }
+        });
+
+        playAgainBtn.addEventListener('click', function() {
+            // Saat tombol "Play Again" ditekan, kembalikan video ke detik ke-0 dan putar kembali
+            video.currentTime = 0;
+            video.play();
+            playAgainBtn.style.display = 'none'; // Sembunyikan tombol "Play Again"
+        });
+    </script>
+</body>
+</html>

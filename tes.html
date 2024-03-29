@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        #game-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-image: url('background1.png'); /* Ganti dengan gambar background */
+        
+            background-size: cover;
+        }
+        
+        
+        #player {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            bottom: 0;
+        
+            background-image: url('player.png'); /* Custom player image */
+            background-size: cover;
+        }
+        
+        .enemy {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+        
+            margin-bottom: 30px;
+            bottom: 0;
+            right: 0;
+                    animation: moveEnemy 10s linear infinite;
+            background-image: url('enemy.png'); /* Custom enemy image */
+            background-size: cover;
+        }
+        .background-2 .enemy {
+            background-image: url('player.png'); /* Change to the new enemy image */
+            background-size: cover;
+        }
+        .ground {
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            bottom: 0;
+            background-color: #138b35; /* Brown color for ground */
+        }
+        
+        #game-over {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 32px;
+            color: white;
+        }
+        @keyframes moveEnemy {
+            from {
+                right: 0; /* Start position */
+            }
+            to {
+                right: calc(100% - 50px); /* End position */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+    <div class="enemy"></div>
+
+    <script>
+        const player = document.getElementById("player");
+        const enemies = document.querySelectorAll(".enemy");
+        const gameOverScreen = document.getElementById("game-over");
+        let isJumping = false;
+        let isMovingRight = false;
+        let isMovingLeft = false;
+        let gameInterval;
+        let enemyInterval;
+        let playerBottom = 20; // Initial vertical position
+        let enemyRight = 0; // posisi awal musuh
+        const moveEnemyInterval = setInterval(moveEnemy, 20);
+        let background = 1;
+
+
+        function startGame() {
+            gameInterval = setInterval(moveEnemy, 20);
+            enemyInterval = setInterval(checkCollision, 20);
+        }
+        
+        document.addEventListener("keydown", event => {
+            if (event.code === "ArrowUp" && !isJumping) {
+                jump();
+            }
+            if (event.code === "ArrowRight") {
+                isMovingRight = true;
+            }
+            if (event.code === "ArrowLeft") {
+                isMovingLeft = true;
+            }
+        });
+        
+        document.addEventListener("keyup", event => {
+            if (event.code === "ArrowRight") {
+                isMovingRight = false;
+            }
+            if (event.code === "ArrowLeft") {
+                isMovingLeft = false;
+            }
+        });
+        
+        function jump() {
+            if (!isJumping) {
+                isJumping = true;
+                let jumpInterval = setInterval(() => {
+                    playerBottom += 20;
+                    player.style.bottom = playerBottom + "px";
+                    if (playerBottom >= 190) { // Maximum jump height
+                        clearInterval(jumpInterval);
+                        let fallInterval = setInterval(() => {
+                            playerBottom -= 5;
+                            player.style.bottom = playerBottom + "px";
+                            if (playerBottom <= 20) { // Back to ground level
+                                clearInterval(fallInterval);
+                                isJumping = false;
+                            }
+                        }, 20);
+                    }
+                }, 20);
+                const jumpSound = document.getElementById("jump-sound");
+                jumpSound.currentTime = 0; // Set the audio time to start
+                jumpSound.play();
+            }
+        }
+        
+        function movePlayer() {
+            if (isMovingRight) {
+                let playerLeft = parseInt(window.getComputedStyle(player).getPropertyValue("left"));
+                player.style.left = (playerLeft + 7) + "px";
+            }
+            if (isMovingLeft) {
+                let playerLeft = parseInt(window.getComputedStyle(player).getPropertyValue("left"));
+                
+                if (playerLeft > 0) {
+                    player.style.left = (playerLeft - 7) + "px";
+                }
+            }
+        }
+        
+        function moveEnemy() {
+            enemy.forEach(enemy => {
+                let enemyPosition = parseInt(window.getComputedStyle(enemy).getPropertyValue("right"));
+                let enemyBottom = parseInt(window.getComputedStyle(enemy).getPropertyValue("bottom"));
+                enemy.style.right = (enemyPosition - 3) + "px";
+                enemy.style.bottom = (enemyBottom + 1) + "px";
+        
+                if (enemyPosition <= 0) {
+                    enemy.style.right = "calc(100% - 50px)";
+                    enemy.style.bottom = (Math.random() * (window.innerHeight - 70)) + "px";
+                }
+            });
+        }
+        
+        function changeEnemySkin() {
+            document.body.classList.add("background-2");
+        }
+
+        function checkCollision() {
+            enemies.forEach(enemy => {
+                const playerRect = player.getBoundingClientRect();
+                const enemyRect = enemy.getBoundingClientRect();
+
+                if (
+                    playerRect.bottom >= enemyRect.top &&
+                    playerRect.top <= enemyRect.bottom &&
+                    playerRect.right >= enemyRect.left &&
+                    playerRect.left <= enemyRect.right
+                ) {
+                    alert("Game Over");
+                    resetGame();
+                }
+            });
+        }
+
+        function resetGame() {
+            window.location.href = window.location.href.split("?")[0]; // Reload the page to restart the game
+        }
+
+        
+        function checkBackground() {
+            if (player.getBoundingClientRect().right >= window.innerWidth) {
+                background++;
+                if (background === 2) {
+                    // Set background 2
+                    document.body.style.background = "url('background2.png') no-repeat";
+                    document.body.style.backgroundSize = "cover";
+                } else if (background === 3) {
+                    // Set background 3
+                    document.body.style.background = "url('background3.png') no-repeat";
+                    document.body.style.backgroundSize = "cover";
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            setInterval(checkCollision, 20);
+            setInterval(moveEnemyFromEdge, 1000); // Check background and move enemies from edge periodically
+            setInterval(checkBackground, 100); // Check player position and change background if necessary
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Street Fighter Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+          }
+          
+          canvas {
+            display: block;
+            margin: auto;
+            background-color: #ccc;
+          }
+          
+          #playerStatusBar{
+            color: #fff;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+          }
+          #enemyStatusBar {
+            color: #fff;
+            position: absolute;
+right: 0;
+          }
+          
+          #playerStatusBar span, #enemyStatusBar span {
+            font-weight: bold;
+          }
+          
+    </style>
+  <canvas id="gameCanvas" width="800" height="600"></canvas>
+  <div id="playerStatusBar">
+    Player Health: <span id="playerHealth">100</span>
+  </div>
+  <div id="enemyStatusBar">
+    Enemy Health: <span id="enemyHealth">100</span>
+  </div>
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+let playerHealth = 100;
+let enemyHealth = 100;
+
+function draw() {
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw characters, weapons, background, etc.
+
+  // Update health bars
+  document.getElementById('playerHealth').innerText = playerHealth;
+  document.getElementById('enemyHealth').innerText = enemyHealth;
+
+  // Check for collision between player weapon and enemy
+  // For simplicity, let's assume the collision detection algorithm
+  // You might want to use better collision detection techniques in a real game
+  if (/* collision detected */) {
+    enemyHealth -= 10;
+  }
+
+  // Check for game over conditions, etc.
+
+  // Request another animation frame
+  requestAnimationFrame(draw);
+}
+
+// Start the game loop
+draw();
+
+  </script>
+</body>
+</html>
+
+
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Street Fighter Clone</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('background.jpg');
+      background-size: cover;
+  }
+  
+  #game-container {
+      position: relative;
+      width: 1300px;
+      height: 700px;
+      margin: 50px auto;
+  }
+  
+  .player {
+      position: absolute;
+      width: 200px;
+      height: 150px;
+      background-image: url('player.png');
+      background-size: cover;
+  }
+  
+  #player1 {
+      left: 50px;
+      bottom: 0;
+  }
+  
+  #player2 {
+      right: 50px;
+      bottom: 0;
+  }
+  
+  .health-bar {
+      position: absolute;
+      height: 10px;
+      width: 500px;
+      background-color: red;
+  }
+  
+  #health-bar-player1 {
+      left: 50px;
+      top: 20px;
+  }
+  
+  #health-bar-player2 {
+      right: 50px;
+      top: 20px;
+  }
+  
+  </style>
+    <div id="game-container">
+        <div id="player1" class="player"></div>
+        <div id="player2" class="player"></div>
+        <div id="health-bar-player1" class="health-bar"></div>
+        <div id="health-bar-player2" class="health-bar"></div>
+    </div>
+    <script>
+      const player1 = document.getElementById('player1');
+const player2 = document.getElementById('player2');
+const healthBarPlayer1 = document.getElementById('health-bar-player1');
+const healthBarPlayer2 = document.getElementById('health-bar-player2');
+const stick = document.createElement('img');
+let player1Health = 500;
+let player2Health = 500;
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'a') {
+        player1.style.left = parseInt(window.getComputedStyle(player1).left) - 10 + 'px';
+    } else if (event.key === 'd') {
+        player1.style.left = parseInt(window.getComputedStyle(player1).left) + 10 + 'px';
+    } else if (event.key === 'j') {
+        player2.style.left = parseInt(window.getComputedStyle(player2).left) - 10 + 'px';
+    } else if (event.key === 'l') {
+        player2.style.left = parseInt(window.getComputedStyle(player2).left) + 10 + 'px';
+    }
+
+    // Check for collision
+    const distance = Math.abs(parseInt(window.getComputedStyle(player1).left) - parseInt(window.getComputedStyle(player2).left));
+    if (distance < 100) {
+        player1Health -= 10;
+        player2Health -= 10;
+        healthBarPlayer1.style.width = player1Health + 'px';
+        healthBarPlayer2.style.width = player2Health + 'px';
+    }
+});
+
+    </script>
+</body>
+</html> 

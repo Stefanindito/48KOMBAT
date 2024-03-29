@@ -1,0 +1,101 @@
+/* styles.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+#centered-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+}
+
+#game-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-image: url('bg.jpg'); /* Ganti dengan gambar background */
+
+    background-size: cover;
+}
+
+
+#health-bar-player {
+    left: 50px;
+    top: 20px;
+    color: azure;
+    position: absolute;
+    height: 10px;
+    width: 500px;
+    background-color: red;
+}
+
+#health-bar-enemy {
+    
+    top: 20px;
+    
+    color: azure;
+    position: absolute;
+    height: 10px;
+    width: 500px;
+    right: 50px;
+    background-color: red;
+}
+
+
+#player {
+    width: 300px;
+    height: 440px;
+    position: absolute;
+    bottom: 0;
+    background-image: url('helisma.png'); /* Custom player image */
+    background-size: cover;
+}
+
+
+.enemy {
+    width: 330px;
+    height: 425px;
+    position: absolute;
+    margin-bottom: 30px;
+    bottom: 0;
+    right: 0;
+    margin-left: 1090px;
+    background-image: url('indah.png'); /* Custom enemy image */
+    background-size: cover;
+}
+
+.hit {
+    filter: opacity(25%) drop-shadow(0px 0px 10px red);
+}
+
+.ground {
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    background-color: #bfb888; /* Brown color for ground */
+}
+
+#game-over {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 32px;
+    color: white;
+}
+
+
+
+
+

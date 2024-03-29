@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>48 KOMBAT</title>
+    <link rel="icon" type="image/png" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body class="background-1">
+    
+
+
+<style>
+    button, #health-bar-enemy, #health-bar-player p,.indah{
+        font-family: "Pixelify Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+      }
+button:hover{
+cursor: pointer;
+}
+    .button {
+        display: flex; 
+       justify-content: center;
+     }
+     .button a{
+       text-decoration: none;
+       color: rgb(32, 31, 31);
+       
+     }
+     .hidden{
+
+        display: none;
+     }
+     .healthbars{
+        position: flex;
+        justify-content: center;
+     }
+
+
+
+    #centered-text {
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 24px;
+        background-color: rgba(255, 255, 255, 0);
+        padding: 20px;
+        border-radius: 10px;
+        display: none;
+    }
+    #centered-text img{
+        width: 920px;
+    }
+    .hide {
+        display: none;
+
+    }
+    #notification-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .menu{
+        bottom: 0;
+    }
+
+</style>
+    <div id="game-container">
+        <div class="button">
+            <a href="starts.html"><button style="width: 100px;">RESTART</button></a>
+            <a href="index.html"><button style="width: 100px;">MAIN MENU</button></a>
+        </div>
+        <div class="healthbars">
+            <div id="health-bar-player"><p>Helisma</p></div>
+            <div id="health-bar-enemy"></div>
+            <p class="indah" style="color: white; z-index: 9999;left: 88%; position:fixed;">Indah Cahya</p>
+        </div>
+
+        <div id="notification-container">
+            <img id="notification-image" src="fight.png" width="500px" alt="Notification" class="hide">
+            <audio id="notif-sound" autoplay src="fight.mp3"></audio>
+        </div>
+
+        <div id="centered-text"></div>
+        <audio id="notification-sound" autoplay src="finishherr.mp3" ></audio>
+        <video id="fullscreen-video" src="video.mp4" style="display: none;"></video>
+        
+        <audio id="moving-audio" autoplay>
+            <source src="jajan.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <div id="player"></div>
+        <audio id="notification-song" autoplay src="indah.mp3" ></audio>
+        <div class="enemy">
+            <div class="hit"></div>
+            <div class="weapon"></div>
+            
+        </div>
+        <!-- <div class="explode"><img src="boom.gif"></div> -->
+ 
+        
+        <div class="ground"></div>       
+        <!-- <div class="matter" style="left: 192px; bottom: 160px; background-image: url(&quot;Content/mario-objects.png&quot;); background-position: -514px -194px;"></div>  -->
+
+        <div id="game-over">
+            
+           <img src="indahwins.png" width="700px" alt="">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</html>

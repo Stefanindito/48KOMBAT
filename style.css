@@ -1,0 +1,155 @@
+/* styles.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-image: url('bgerigo.jpg'); /* Ganti dengan gambar background */
+
+    background-size: cover;
+}
+
+
+#player {
+    width: 114px;
+    height: 200px;
+    position: absolute;
+    bottom: 0;
+
+    background-image: url('tg.png'); /* Custom player image */
+    background-size: cover;
+}
+        .brick {
+  
+            position: absolute;
+            right: 0;
+            bottom: 200px; /* Adjust this value to position the bricks above the ground */
+
+        }
+        .blinking-png {
+      
+                position: absolute;
+                right: 0;
+                bottom: 200px; 
+                animation: blinkAnimation 2s infinite; /* Animasi berkedip */
+            }
+        
+
+.enemy {
+    width: 200px;
+    height: 250px;
+    position: absolute;
+
+    margin-bottom: 30px;
+    bottom: 0;
+    right: 0;
+            animation: moveEnemy 9s linear infinite;
+    background-image: url('christy.png'); /* Custom enemy image */
+    background-size: cover;
+}
+
+.enemy.enemy3 {
+    width: 500px;
+    height: 600px;
+    position: absolute;
+
+    margin-bottom: 30px;
+    bottom: 0;
+    right: 0;
+            animation: moveEnemy 2s linear infinite;
+    background-image: url('player.png'); /* Custom enemy image */
+    background-size: cover;
+}
+.enemy.enemy4 {
+    width: 200px;
+    height: 250px;
+    position: absolute;
+
+    margin-bottom: 30px;
+    bottom: 0;
+    right: 0;
+            animation: moveEnemy 2.9s linear infinite;
+    background-image: url('jessi.png'); /* Custom enemy image */
+    background-size: cover;
+}
+.enemy.enemy5 {
+    width: 200px;
+    height: 250px;
+    position: absolute;
+
+    margin-bottom: 30px;
+    bottom: 0;
+    right: 0;
+            animation: moveEnemy 2.4s linear infinite;
+    background-image: url('freya.png'); /* Custom enemy image */
+    background-size: cover;
+}
+.enemy.enemy6 {
+    width: 200px;
+    height: 250px;
+    position: absolute;
+
+    margin-bottom: 30px;
+    bottom: 0;
+    right: 0;
+            animation: moveEnemy 3.6s linear infinite;
+    background-image: url('adel.png'); /* Custom enemy image */
+    background-size: cover;
+}
+.enemy.enemy7 {
+    width: 200px;
+    height: 250px;
+    position: absolute;
+
+    margin-bottom: 30px;
+    bottom: 0;
+    right: 0;
+            animation: moveEnemy 5s linear infinite;
+    background-image: url('gracia.png'); /* Custom enemy image */
+    background-size: cover;
+}
+
+
+.ground {
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    background-color: #138b35; /* Brown color for ground */
+}
+
+#game-over {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 32px;
+    color: white;
+}
+@keyframes moveEnemy {
+    from {
+        right: 0; /* Start position */
+    }
+    to {
+        right: calc(100% - 50px); /* End position */
+    }
+}
+@keyframes blinkAnimation {
+    0% {
+        opacity: 1; /* Tampilkan gambar */
+    }
+    50% {
+        opacity: 0; /* Sembunyikan gambar */
+    }
+    100% {
+        opacity: 1; /* Tampilkan gambar kembali */
+    }
+}
