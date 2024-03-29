@@ -42,21 +42,13 @@ hand.style.zIndex = '998'; // Sembunyikan tongkat secara default
 player.appendChild(stick); // Menambahkan tongkat ke dalam kontainer player1
 
 document.addEventListener("DOMContentLoaded", function() {
+    // Tunda animasi dan pemutaran audio selama 6 detik
     setTimeout(function() {
-        // Setelah 10 detik, tambahkan gambar dan mulai pemutaran suara
-        const movingAudio = document.getElementById('moving-audio');
-        const player = document.getElementById("player");
-        const enemy = document.querySelector(".enemy");
-
-        // Mulai suara
-        movingAudio.play();
-
         // Tambahkan gambar di belakang player dan enemy
         const movingImage = new Image();
         movingImage.src = 'cameo.png'; // Ganti 'cameo.png' dengan path gambar yang sesuai
         movingImage.alt = 'Moving Image';
         movingImage.style.position = 'fixed';
-        // movingImage.style.top = '43%';
         movingImage.style.bottom = '0';
         movingImage.style.width = '300px';
         movingImage.style.height = '500px';
@@ -67,12 +59,25 @@ document.addEventListener("DOMContentLoaded", function() {
         // Tempatkan gambar di belakang player dan enemy
         document.body.appendChild(movingImage); // Tambahkan gambar ke dalam body
 
-        // Tunda mulai animasi agar suara dan gambar dimulai bersamaan
+        // Mulai suara setelah 10 detik
         setTimeout(function() {
-            movingImage.style.left = 'calc(100vw + 100px)'; // Berakhir di luar layar kanan
-        }, 1100); // Delay start of animation to synchronize with sound
-    }, 6000); // Tunggu 10 detik sebelum memulai animasi
+            const movingAudio = document.getElementById('moving-audio');
+            movingAudio.load(); // Muat audio
+            movingAudio.play(); // Mulai pemutaran suara
+
+            // Tunda mulai animasi agar suara dan gambar dimulai bersamaan
+            setTimeout(function() {
+                movingImage.style.left = 'calc(100vw + 100px)'; // Berakhir di luar layar kanan
+            }, 1100); // Delay start of animation to synchronize with sound
+        }, 4000); // Tunggu 4 detik sebelum memulai suara
+    }, 2000); // Tunggu 2 detik sebelum memulai animasi
+
+    // Memanggil fungsi untuk memainkan suara notifikasi setelah 1.5 detik
+    setTimeout(function() {
+        playNotifSound();
+    }, 1500);
 });
+
 
 function throwEnemyWeapon() {
     if (!isEnemyStickThrown) {
@@ -155,7 +160,7 @@ function jump() {
         }, 20);
         const jumpSound = document.getElementById("jump-sound");
         jumpSound.currentTime = 0; // Set the audio time to start
-        jumpSound.play();
+       
     }
 }
 
@@ -370,13 +375,14 @@ function isCollisionPlayerEnemy(player, enemy) {
 }
 
 function playNotificationSong() {
-    if (!isPlayerHealthZero) { // Memastikan bahwa suara belum diputar jika health bar player sudah mencapai 0
-        const notificationSong = document.getElementById('notification-song');
-        notificationSong.play();
-        isPlayerHealthZero = true; // Mengatur penanda bahwa suara sudah diputar
+    if (!isPlayerHealthZero) { // Memastikan bahwa suara belum diputar sebelumnya
+        setTimeout(() => {
+            const notificationSong = document.getElementById('notification-song');
+            notificationSong.play();
+            isPlayerHealthZero = true; // Mengatur penanda bahwa suara sudah diputar
+        }, 1500); // Tunda pemutaran suara selama 1.5 detik (sesuaikan dengan kebutuhan)
     }
 }
-
 
 function checkPlayerHealth() {
     if (playerHealth <= 0) {
@@ -473,13 +479,14 @@ function playNotifSound() {
     const notifSound = document.getElementById('notif-sound');
     const notificationImage = document.getElementById('notification-image');
 
-    // Memunculkan gambar dan memainkan suara
+    // Memunculkan gambar notifikasi
     notificationImage.style.display = 'block';
+    
+    // Memainkan suara notifikasi
     notifSound.play();
 
-    // Menghilangkan gambar dan suara setelah 1.5 detik
+    // Menghilangkan gambar notifikasi setelah 1.5 detik
     setTimeout(function() {
         notificationImage.style.display = 'none';
-    }, 1700);
+    }, 1500); // Menghilangkan gambar notifikasi setelah 1.5 detik
 }
-
